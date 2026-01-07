@@ -2,21 +2,6 @@
 
 This guide explains how to implement ChatGPT OAuth authentication (OpenAI Codex) in a browser-based agent and invoke the OpenAI API.
 
-## Table of Contents
-
-1. [Authentication Flow Overview](#authentication-flow-overview)
-2. [Prerequisites](#prerequisites)
-3. [Step 1: PKCE Generation](#step-1-pkce-generation)
-4. [Step 2: Authorization URL](#step-2-authorization-url)
-5. [Step 3: Handle OAuth Callback](#step-3-handle-oauth-callback)
-6. [Step 4: Exchange Code for Tokens](#step-4-exchange-code-for-tokens)
-7. [Step 5: Extract Account ID](#step-5-extract-account-id)
-8. [Step 6: Token Refresh](#step-6-token-refresh)
-9. [Step 7: Invoke OpenAI API](#step-7-invoke-openai-api)
-10. [Complete Example](#complete-example)
-
----
-
 ## Authentication Flow Overview
 
 The Codex authentication flow follows the OAuth 2.0 Authorization Code flow with PKCE:
@@ -31,18 +16,6 @@ User → Authorization URL → OpenAI Login → Callback with Code → Exchange 
 - **Token URL**: `https://auth.openai.com/oauth/token`
 - **API Base URL**: `https://chatgpt.com/backend-api`
 - **Scope**: `openid profile email offline_access`
-
----
-
-## Prerequisites
-
-For a browser-based implementation, you'll need:
-
-1. A backend server to handle the OAuth callback (required for security)
-2. Storage for tokens (localStorage, IndexedDB, or backend session)
-3. TypeScript/JavaScript environment
-
----
 
 ## Step 1: PKCE Generation
 
@@ -806,33 +779,3 @@ document.getElementById('send-btn')?.addEventListener('click', async () => {
   });
 });
 ```
-
----
-
-## Important Security Considerations
-
-1. **Never expose tokens in client-side code**: Store them securely and use HTTPS
-2. **Implement CSRF protection**: Always validate the `state` parameter
-3. **Use short-lived tokens**: Refresh tokens regularly
-4. **Backend proxy recommended**: Consider proxying API calls through your backend to avoid exposing tokens
-5. **Validate redirect URIs**: Ensure redirect URIs match your registered callback
-
-## Available Models
-
-Common models available via the Codex API:
-- `gpt-4o` - GPT-4 Optimized
-- `gpt-4o-mini` - Smaller, faster variant
-- `o1` - Reasoning model
-- `o1-mini` - Smaller reasoning model
-- `o3-mini` - Latest reasoning model
-
-## Additional Resources
-
-- OpenAI OAuth Documentation: https://platform.openai.com/docs/guides/authentication
-- OAuth 2.0 RFC: https://tools.ietf.org/html/rfc6749
-- PKCE RFC: https://tools.ietf.org/html/rfc7636
-
----
-
-**Created**: 2026-01-07
-**Last Updated**: 2026-01-07
